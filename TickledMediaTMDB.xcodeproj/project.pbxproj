@@ -15,6 +15,10 @@
 		774525C623F488920034B846 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 774525C423F488920034B846 /* LaunchScreen.storyboard */; };
 		774525D123F488930034B846 /* TickledMediaTMDBTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 774525D023F488930034B846 /* TickledMediaTMDBTests.swift */; };
 		774525DC23F488930034B846 /* TickledMediaTMDBUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 774525DB23F488930034B846 /* TickledMediaTMDBUITests.swift */; };
+		774525EB23F49BA00034B846 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 774525EA23F49BA00034B846 /* Result.swift */; };
+		774525ED23F49BBB0034B846 /* ErrorResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 774525EC23F49BBB0034B846 /* ErrorResult.swift */; };
+		774525F123F49D5F0034B846 /* RequestFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 774525F023F49D5F0034B846 /* RequestFactory.swift */; };
+		774525F323F49F1A0034B846 /* RequestService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 774525F223F49F1A0034B846 /* RequestService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +53,10 @@
 		774525D723F488930034B846 /* TickledMediaTMDBUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TickledMediaTMDBUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		774525DB23F488930034B846 /* TickledMediaTMDBUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TickledMediaTMDBUITests.swift; sourceTree = "<group>"; };
 		774525DD23F488930034B846 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		774525EA23F49BA00034B846 /* Result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
+		774525EC23F49BBB0034B846 /* ErrorResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorResult.swift; sourceTree = "<group>"; };
+		774525F023F49D5F0034B846 /* RequestFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestFactory.swift; sourceTree = "<group>"; };
+		774525F223F49F1A0034B846 /* RequestService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +107,7 @@
 		774525B823F488910034B846 /* TickledMediaTMDB */ = {
 			isa = PBXGroup;
 			children = (
+				774525E923F49B820034B846 /* Service */,
 				774525B923F488910034B846 /* AppDelegate.swift */,
 				774525BB23F488910034B846 /* SceneDelegate.swift */,
 				774525BD23F488910034B846 /* ViewController.swift */,
@@ -126,6 +135,33 @@
 				774525DD23F488930034B846 /* Info.plist */,
 			);
 			path = TickledMediaTMDBUITests;
+			sourceTree = "<group>";
+		};
+		774525E923F49B820034B846 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				774525EE23F49D3C0034B846 /* Result */,
+				774525EF23F49D440034B846 /* Network */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		774525EE23F49D3C0034B846 /* Result */ = {
+			isa = PBXGroup;
+			children = (
+				774525EA23F49BA00034B846 /* Result.swift */,
+				774525EC23F49BBB0034B846 /* ErrorResult.swift */,
+			);
+			path = Result;
+			sourceTree = "<group>";
+		};
+		774525EF23F49D440034B846 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				774525F023F49D5F0034B846 /* RequestFactory.swift */,
+				774525F223F49F1A0034B846 /* RequestService.swift */,
+			);
+			path = Network;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -259,8 +295,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				774525F323F49F1A0034B846 /* RequestService.swift in Sources */,
+				774525F123F49D5F0034B846 /* RequestFactory.swift in Sources */,
 				774525BE23F488910034B846 /* ViewController.swift in Sources */,
+				774525ED23F49BBB0034B846 /* ErrorResult.swift in Sources */,
 				774525BA23F488910034B846 /* AppDelegate.swift in Sources */,
+				774525EB23F49BA00034B846 /* Result.swift in Sources */,
 				774525BC23F488910034B846 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
