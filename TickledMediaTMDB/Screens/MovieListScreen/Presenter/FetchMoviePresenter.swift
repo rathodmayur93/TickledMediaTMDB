@@ -18,8 +18,7 @@ class FetchMoviePresenter {
     //MARK: Variables
     private var service             : FetchMoviesServiceProtocol?
     private weak var dataSource     : MovieListDataSource?
-    private weak var delegate       : MovieListDelegate?
-    private weak var delegateFlow   : MovieListDelegateFlowLayout?
+    private weak var delegate       : MovieListDelegateFlowLayout?
     private weak var prefetchData   : MovieListPrefetchingDataSource?
     var onErrorHandling             : ((ErrorResult?) -> Void)?
     private var parameters          : [String : String]?
@@ -44,41 +43,42 @@ class FetchMoviePresenter {
     //MARK:- Init
     init(service: FetchMoviesServiceProtocol = FetchMoviesService.shared,
          dataSource : MovieListDataSource,
-         delegate : MovieListDelegate,
-         delegateFlow : MovieListDelegateFlowLayout,
+         delegate : MovieListDelegateFlowLayout,
          prefetchDataSource : MovieListPrefetchingDataSource) {
         
         self.service = service
         self.dataSource = dataSource
         self.delegate = delegate
-        self.delegateFlow = delegateFlow
         self.prefetchData = prefetchDataSource
     }
     
     private func passDataToDataSource(){
         dataSource?.fetchMovieListPresenter = self
         delegate?.fetchMovieListPresenter = self
-        delegateFlow?.fetchMovieListPresenter = self
-        //prefetchData?.fetchMovieListPresenter = self
+        prefetchData?.fetchMovieListPresenter = self
         
     }
     
     //MARK:- Fetching Movie Values
     func fetchMovieName(atIndex : Int) -> String{
-        return movieListModel?.results?[atIndex].originalTitle ?? ""
+        return movieListModel?.results?[atIndex].title ?? ""
     }
     
     func fetchMoviePosterUrl(atIndex : Int) -> String{
         return Constants.imageBaseUrl + (movieListModel?.results?[atIndex].posterPath ?? "")
     }
     
+    func isLoadingCell(for indexPath: IndexPath) -> Bool {
+        return indexPath.row >= currentItemsCount
+    }
+    
     //MARK: - API Calls
     func fetchMovieList(service: FetchMoviesServiceProtocol = FetchMoviesService.shared){
         
         guard !isFetchInProgress else {
-          return
+            return
         }
-
+        
         isFetchInProgress = true
         
         //Show loader while loading first page only
@@ -109,29 +109,40 @@ class FetchMoviePresenter {
     //MARK:- Response Handlers
     //Handling the API Response
     private func handleFetchMovieAPIResponse(movieList : MovieListModel){
-        self.movieListModel = movieList
-        self.passDataToDataSource()
         
+        //Api call is done now make the flag as false
         isFetchInProgress = false
+        
+        //Handling the pagination event
+        paginationHandler(movieList: movieList)
+        
+        //Reloading the collectionView
+        self.fetchedMovieSuccessfullyDelegate?.reloadCollectionView()
+        
+        //Inceasing the page count by one
         currentPage += 1
         
-        totalPages = movieList.totalPages ?? 0
+        //pasing the data source
+        self.passDataToDataSource()
+    }
+    
+    private func paginationHandler(movieList : MovieListModel){
         
-        if (currentPage > 1){
+        /*
+         - if condition will check whether the current page is equal to 1 or not
+         - If the current page is equal to 1 means its fetching the movie list for the first time
+         - If the current page is more than 1 means we have to append the result at the end of the of list
+         */
+        if(currentPage > 1){
             movieListModel?.results! += movieList.results!
-//            let indexPathToReload = calculateIndexPathsToReload(newMovieList: movieList.results ?? [])
-//            self.fetchedMovieSuccessfullyDelegate?.reloadCollectionViewIndexPaths(indexPaths: indexPathToReload)
-            self.fetchedMovieSuccessfullyDelegate?.reloadCollectionView()
-            
         }else{
             movieListModel = movieList
-            self.fetchedMovieSuccessfullyDelegate?.reloadCollectionView()
         }
     }
     
     private func calculateIndexPathsToReload(newMovieList: [MovieResult]) -> [IndexPath] {
-      let startIndex = currentItemsCount - newMovieList.count
-      let endIndex = startIndex + newMovieList.count
-      return (startIndex..<endIndex).map { IndexPath(row: $0, section: 0) }
+        let startIndex = currentItemsCount - newMovieList.count
+        let endIndex = startIndex + 10//newMovieList.count
+        return (startIndex..<endIndex).map { IndexPath(row: $0, section: 0) }
     }
 }

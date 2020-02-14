@@ -122,8 +122,8 @@
 			isa = PBXGroup;
 			children = (
 				7721F2E823F6B8430045910E /* Constants.swift */,
-				7721F2FC23F6C7390045910E /* Extensions.swift */,
 				7721F2FD23F6C7390045910E /* UiUtility.swift */,
+				7721F2FC23F6C7390045910E /* Extensions.swift */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -249,9 +249,9 @@
 		774525E923F49B820034B846 /* Service */ = {
 			isa = PBXGroup;
 			children = (
-				7721F2E423F6B7D70045910E /* API */,
-				774525EE23F49D3C0034B846 /* Result */,
 				774525EF23F49D440034B846 /* Network */,
+				774525EE23F49D3C0034B846 /* Result */,
+				7721F2E423F6B7D70045910E /* API */,
 			);
 			path = Service;
 			sourceTree = "<group>";

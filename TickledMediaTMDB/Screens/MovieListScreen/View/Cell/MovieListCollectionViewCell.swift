@@ -9,7 +9,7 @@
 import UIKit
 
 class MovieListCollectionViewCell: UICollectionViewCell {
-
+    
     @IBOutlet weak var moviePosterImageView: UIImageView!
     @IBOutlet weak var movieNameLabel: UILabel!
     
