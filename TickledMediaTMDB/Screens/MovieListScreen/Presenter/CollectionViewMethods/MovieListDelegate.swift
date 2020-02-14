@@ -9,6 +9,10 @@
 import Foundation
 import UIKit
 
+protocol MovieSelectedDelegate {
+    func didSelectMovie(movieId : Int)
+}
+
 class MovieListDelegateFlowLayout : MovieListData, UICollectionViewDelegateFlowLayout, UICollectionViewDelegate{
     
     //MARK:- Delegate Flow Layout Methods
@@ -32,6 +36,8 @@ class MovieListDelegateFlowLayout : MovieListData, UICollectionViewDelegateFlowL
     //MARK:- UICollectionViewDelegate Methods
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print("Selected movie \(String(describing: fetchMovieListPresenter?.fetchMovieName(atIndex: indexPath.item)))")
+        let movieId = fetchMovieListPresenter?.movieListModel?.results?[indexPath.item].id ?? 0
+        fetchMovieListPresenter?.movieSelectedDelegate?.didSelectMovie(movieId: movieId)
     }
     
 }

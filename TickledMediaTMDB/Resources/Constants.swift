@@ -13,10 +13,18 @@ struct Constants {
     
     static let apiKey = "8eac22f4c24d01c480e4d99fef2edfc3"
     
-    //Urls
+    //API Urls
     static let baseUrl      = "http://api.themoviedb.org/3"
     static let imageBaseUrl = "http://image.tmdb.org/t/p/w342"
+    
+    //Endpoints
     static let movieList    = baseUrl + "/trending/movie/week"
+    
+    //Storyboard Names
+    static let mainStoryboard = "Main"
+    
+    //UIViewController Names
+    static let movieDetailVC = "MovieDetailViewController"
     
     //Cell names
     static let movieListCellName = "movieCell"

@@ -42,6 +42,7 @@ class ViewController: UIViewController {
         //Fetch the movies api call
         fetchMoviePresenter.fetchMovieList()
         fetchMoviePresenter.fetchedMovieSuccessfullyDelegate = self
+        fetchMoviePresenter.movieSelectedDelegate = self
     }
     
     //Setting up the collectionView
@@ -62,9 +63,16 @@ class ViewController: UIViewController {
     }
 }
 
-extension ViewController : FetchedMovieSuccessfully{
+extension ViewController : FetchedMovieSuccessfullyDelegate{
     
     func reloadCollectionView() {
         movieCollectionView.reloadData()
+    }
+}
+
+extension ViewController : MovieSelectedDelegate{
+    
+    func didSelectMovie(movieId: Int) {
+        Router.navigateToMovieDetailScreen(fromController: self, movieId: movieId)
     }
 }

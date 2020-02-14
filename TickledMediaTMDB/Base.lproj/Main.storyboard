@@ -56,6 +56,58 @@
             </objects>
             <point key="canvasLocation" x="1047.8260869565217" y="126.5625"/>
         </scene>
+        <!--Movie Detail View Controller-->
+        <scene sceneID="gcH-VC-xJW">
+            <objects>
+                <viewController storyboardIdentifier="MovieDetailViewController" id="iwu-cD-XFT" customClass="MovieDetailViewController" customModule="TickledMediaTMDB" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="APe-pw-H3w">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3CK-Pa-s0I">
+                                <rect key="frame" x="0.0" y="88" width="414" height="774"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="UP2-iR-4M7">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="300"/>
+                                    </imageView>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oV7-RE-vWp">
+                                        <rect key="frame" x="8" y="308" width="398" height="466"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="466" id="JhD-zY-Fi5"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="UP2-iR-4M7" secondAttribute="trailing" id="16s-Sp-JNs"/>
+                                    <constraint firstItem="UP2-iR-4M7" firstAttribute="top" secondItem="Euy-Jc-irM" secondAttribute="top" id="9ep-B9-YmU"/>
+                                    <constraint firstAttribute="bottom" secondItem="oV7-RE-vWp" secondAttribute="bottom" constant="34" id="DGh-z6-Jnx"/>
+                                    <constraint firstItem="oV7-RE-vWp" firstAttribute="bottom" secondItem="Euy-Jc-irM" secondAttribute="bottom" id="LT4-I9-CFb"/>
+                                    <constraint firstItem="oV7-RE-vWp" firstAttribute="top" secondItem="UP2-iR-4M7" secondAttribute="bottom" constant="8" id="McI-rb-Wtf"/>
+                                    <constraint firstItem="UP2-iR-4M7" firstAttribute="leading" secondItem="Euy-Jc-irM" secondAttribute="leading" id="PpS-PH-5xo"/>
+                                    <constraint firstItem="UP2-iR-4M7" firstAttribute="centerX" secondItem="3CK-Pa-s0I" secondAttribute="centerX" id="awJ-S1-VPB"/>
+                                    <constraint firstItem="oV7-RE-vWp" firstAttribute="leading" secondItem="Euy-Jc-irM" secondAttribute="leading" constant="8" id="woz-1L-GoW"/>
+                                    <constraint firstItem="Euy-Jc-irM" firstAttribute="trailing" secondItem="oV7-RE-vWp" secondAttribute="trailing" constant="8" id="yjq-mM-voK"/>
+                                </constraints>
+                                <viewLayoutGuide key="contentLayoutGuide" id="H7Q-P8-hnk"/>
+                                <viewLayoutGuide key="frameLayoutGuide" id="Euy-Jc-irM"/>
+                            </scrollView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="3CK-Pa-s0I" firstAttribute="top" secondItem="t04-Lv-Ma8" secondAttribute="top" constant="44" id="8ey-Ye-RKd"/>
+                            <constraint firstItem="3CK-Pa-s0I" firstAttribute="centerX" secondItem="APe-pw-H3w" secondAttribute="centerX" id="ZJH-Um-qhd"/>
+                            <constraint firstAttribute="bottomMargin" secondItem="3CK-Pa-s0I" secondAttribute="bottom" id="ZcB-Iy-dCn"/>
+                            <constraint firstItem="3CK-Pa-s0I" firstAttribute="leading" secondItem="t04-Lv-Ma8" secondAttribute="leading" id="aNT-KI-HXI"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="t04-Lv-Ma8"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="1hI-0I-KxL"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4h1-eZ-W2P" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1797.1014492753625" y="126.5625"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="ift-Cs-xiG">
             <objects>

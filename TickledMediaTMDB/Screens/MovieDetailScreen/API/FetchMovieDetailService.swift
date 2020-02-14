@@ -1,5 +1,5 @@
 //
-//  FetchMoviesService.swift
+//  FetchMovieDetailAPI.swift
 //  TickledMediaTMDB
 //
 //  Created by ds-mayur on 2/14/20.
@@ -8,26 +8,27 @@
 
 import Foundation
 
-protocol FetchMoviesServiceProtocol {
-    func fetchMovieList(parameter: [String : String], _ completion: @escaping ((Result<MovieListModel, ErrorResult>) -> Void))
+protocol FetchMovieDetailServiceProtocol  {
+    func fethcMovieDetail(movieId : Int, parameter: [String : String], _ completion: @escaping ((Result<MovieDetailModel, ErrorResult>) -> Void))
 }
 
-final class FetchMoviesService : RequestHandler, FetchMoviesServiceProtocol{
+class FetchMovieDetailService : RequestHandler, FetchMovieDetailServiceProtocol {
     
     //Creating the singleton instance of the FetchMoviesService
-    static let shared = FetchMoviesService()
-    
-    let endpoint = Constants.movieList
+    static let shared = FetchMovieDetailService()
     var task : URLSessionTask?
     
-    func fetchMovieList(parameter : [String : String], _ completion: @escaping ((Result<MovieListModel, ErrorResult>) -> Void)) {
+    func fethcMovieDetail(movieId : Int, parameter: [String : String], _ completion: @escaping ((Result<MovieDetailModel, ErrorResult>) -> Void)) {
+        
+        let endpoint = Endpoint.movieDetail(movieId: movieId).path
+        
         // cancel previous request if already in progress
         self.cancelFetchContacts()
         
         let networkResult = self.networkResultData(completion: completion)
         task = RequestService().loadData(urlString: endpoint, parameters: parameter, completion: networkResult)
+        
     }
-    
     
     func cancelFetchContacts() {
         

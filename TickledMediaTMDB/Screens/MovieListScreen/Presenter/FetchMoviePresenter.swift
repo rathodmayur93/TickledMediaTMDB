@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-protocol FetchedMovieSuccessfully {
+protocol FetchedMovieSuccessfullyDelegate {
     func reloadCollectionView()
 }
 
@@ -24,7 +24,8 @@ class FetchMoviePresenter {
     private var parameters          : [String : String]?
     
     var movieListModel                      : MovieListModel?
-    var fetchedMovieSuccessfullyDelegate    : FetchedMovieSuccessfully?
+    var fetchedMovieSuccessfullyDelegate    : FetchedMovieSuccessfullyDelegate?
+    var movieSelectedDelegate               : MovieSelectedDelegate?
     
     let sectionInsets   = UIEdgeInsets(top: 10.0, left: 10.0, bottom: 20.0, right: 10.0)
     
@@ -86,11 +87,7 @@ class FetchMoviePresenter {
             UiUtility.showIndicatorLoader()
         }
         
-        parameters = ["api_key" : Constants.apiKey, "page" : "\(currentPage)"]
-        
-        guard let queryParamter = parameters else { return }
-        
-        service.fetchMovieList(parameter: queryParamter) { result in
+        service.fetchMovieList(parameter: ServiceParameters.movieListParams(currentPage: currentPage)) { result in
             DispatchQueue.main.async {
                 switch result{
                 case .success(let movieList):
