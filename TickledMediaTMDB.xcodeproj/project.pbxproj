@@ -44,6 +44,7 @@
 		774525F323F49F1A0034B846 /* RequestService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 774525F223F49F1A0034B846 /* RequestService.swift */; };
 		774DA24323F742F2004E8396 /* ServiceParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 774DA24223F742F2004E8396 /* ServiceParameters.swift */; };
 		774DA24623F74534004E8396 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 774DA24523F74534004E8396 /* Router.swift */; };
+		77D031CE23F88A8D0017DA6C /* MovieDetailViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77D031CD23F88A8D0017DA6C /* MovieDetailViewPresenter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -107,6 +108,7 @@
 		774525F223F49F1A0034B846 /* RequestService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestService.swift; sourceTree = "<group>"; };
 		774DA24223F742F2004E8396 /* ServiceParameters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceParameters.swift; sourceTree = "<group>"; };
 		774DA24523F74534004E8396 /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
+		77D031CD23F88A8D0017DA6C /* MovieDetailViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailViewPresenter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -137,9 +139,10 @@
 		7709C52C23F73592000333C3 /* MovieDetailScreen */ = {
 			isa = PBXGroup;
 			children = (
-				7709C53223F738C3000333C3 /* Model */,
 				7709C52F23F735D1000333C3 /* API */,
-				7709C52D23F735AB000333C3 /* MovieDetailViewController.swift */,
+				7709C53223F738C3000333C3 /* Model */,
+				77D031CB23F88A720017DA6C /* View */,
+				77D031CC23F88A7C0017DA6C /* Presenter */,
 			);
 			path = MovieDetailScreen;
 			sourceTree = "<group>";
@@ -343,6 +346,22 @@
 			path = Router;
 			sourceTree = "<group>";
 		};
+		77D031CB23F88A720017DA6C /* View */ = {
+			isa = PBXGroup;
+			children = (
+				7709C52D23F735AB000333C3 /* MovieDetailViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		77D031CC23F88A7C0017DA6C /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				77D031CD23F88A8D0017DA6C /* MovieDetailViewPresenter.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -506,6 +525,7 @@
 				7721F2E323F6B7BA0045910E /* RequestHandler.swift in Sources */,
 				7709C53A23F73911000333C3 /* ProductionCompany.swift in Sources */,
 				774525BC23F488910034B846 /* SceneDelegate.swift in Sources */,
+				77D031CE23F88A8D0017DA6C /* MovieDetailViewPresenter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

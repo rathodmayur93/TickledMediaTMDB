@@ -20,8 +20,6 @@ class FetchMoviePresenter {
     private weak var dataSource     : MovieListDataSource?
     private weak var delegate       : MovieListDelegateFlowLayout?
     private weak var prefetchData   : MovieListPrefetchingDataSource?
-    var onErrorHandling             : ((ErrorResult?) -> Void)?
-    private var parameters          : [String : String]?
     
     var movieListModel                      : MovieListModel?
     var fetchedMovieSuccessfullyDelegate    : FetchedMovieSuccessfullyDelegate?
