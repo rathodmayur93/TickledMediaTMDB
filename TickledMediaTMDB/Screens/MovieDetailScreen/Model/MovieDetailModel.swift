@@ -9,8 +9,7 @@
 struct MovieDetailModel: Codable {
     let adult: Bool?
     let backdropPath: String?
-    let belongsToCollection: BelongsToCollection?
-    let budget: Int?
+    let budget: Double?
     let genres: [Genre]?
     let homepage: String?
     let id: Int?
@@ -20,16 +19,15 @@ struct MovieDetailModel: Codable {
     let productionCompanies: [ProductionCompany]?
     let productionCountries: [ProductionCountry]?
     let releaseDate: String?
-    let revenue, runtime: Int?
+    let revenue, runtime: Double?
     let spokenLanguages: [SpokenLanguage]?
     let status, tagline, title: String?
     let video: Bool?
-    let voteAverage, voteCount: Int?
+    let voteAverage, voteCount: Double?
 
     enum CodingKeys: String, CodingKey {
         case adult
         case backdropPath = "backdrop_path"
-        case belongsToCollection = "belongs_to_collection"
         case budget, genres, homepage, id
         case imdbID = "imdb_id"
         case originalLanguage = "original_language"

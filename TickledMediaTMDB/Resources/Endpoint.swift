@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum Endpoint : RequestProtocol{
+enum Endpoint {
     
     case movieList
     case movieDetail(movieId : Int)
@@ -20,5 +20,4 @@ enum Endpoint : RequestProtocol{
         case .movieDetail(let movieId): return Constants.baseUrl + "/movie/\(movieId)"
         }
     }
-    
 }
