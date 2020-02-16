@@ -46,7 +46,7 @@ class MovieDetailViewController: UIViewController {
     }
     
     //MARK:- Updating the UI
-    func updateUI(){
+    private func updateUI(){
         self.posterImageView.loadImageUsingUrl(urlString: movieDetailPresenter.posterImageView)
         movieTitleLabel.text = movieDetailPresenter.movieTitle
         movieTagLineLabel.text = movieDetailPresenter.movieTagline
@@ -58,10 +58,14 @@ class MovieDetailViewController: UIViewController {
     }
     
     //MARK: Show Error
-    func showErrorMessage(){
-        let controller = UIAlertController(title: "An error occured", message: "Oops, something went wrong!", preferredStyle: .alert)
-        controller.addAction(UIAlertAction(title: "Close", style: .cancel, handler: nil))
-        self.present(controller, animated: true, completion: nil)
+    private func showErrorMessage(){
+        
+        movieDetailPresenter.onErrorHandling = { [weak self] error in
+            // display error ?
+            let controller = UIAlertController(title: Constants.alertBoxHeading, message: error?.localizedDescription, preferredStyle: .alert)
+            controller.addAction(UIAlertAction(title: "Close", style: .cancel, handler: nil))
+            self?.present(controller, animated: true, completion: nil)
+        }
     }
 }
 

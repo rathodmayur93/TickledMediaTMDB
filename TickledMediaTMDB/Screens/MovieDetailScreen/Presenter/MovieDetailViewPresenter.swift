@@ -70,6 +70,7 @@ class MovieDetailViewPresenter{
         
         guard let service = service else {
             onErrorHandling?(ErrorResult.custom(string: "Missing Service"))
+            self.movieDetailDelegate?.movieDetailFailedToLoad()
             return
         }
         

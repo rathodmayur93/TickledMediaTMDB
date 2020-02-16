@@ -12,8 +12,7 @@ class MovieListCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var moviePosterImageView: UIImageView!
     @IBOutlet weak var movieNameLabel: UILabel!
-    
-    var imageCache = [String : UIImage]()
+   // @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -26,12 +25,6 @@ class MovieListCollectionViewCell: UICollectionViewCell {
     func setupCell(fetchMoviePresenter : FetchMoviePresenter, itemIndex : Int){
         moviePosterImageView.image = nil
         movieNameLabel.text = fetchMoviePresenter.fetchMovieName(atIndex: itemIndex)
-        
-        if let image = imageCache[fetchMoviePresenter.fetchMoviePosterUrl(atIndex: itemIndex)]{
-            moviePosterImageView.image = image
-        }else{
-            moviePosterImageView.loadImageUsingUrl(urlString: fetchMoviePresenter.fetchMoviePosterUrl(atIndex: itemIndex))
-            imageCache[fetchMoviePresenter.fetchMoviePosterUrl(atIndex: itemIndex)] = moviePosterImageView.image
-        }
+        moviePosterImageView.loadImageUsingUrl(urlString: fetchMoviePresenter.fetchMoviePosterUrl(atIndex: itemIndex))
     }
 }

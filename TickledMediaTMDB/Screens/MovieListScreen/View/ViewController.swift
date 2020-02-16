@@ -14,9 +14,10 @@ class ViewController: UIViewController {
     @IBOutlet weak var movieCollectionView: UICollectionView!
     
     //MARK:- Variables
-    let dataSource = MovieListDataSource()
-    let delegate = MovieListDelegateFlowLayout()
-    let prefetchDataSource = MovieListPrefetchingDataSource()
+    private let dataSource = MovieListDataSource()
+    private let delegate = MovieListDelegateFlowLayout()
+    private let prefetchDataSource = MovieListPrefetchingDataSource()
+    private let refreshControl = UIRefreshControl()
     
     //Setting up the presenter
     lazy var fetchMoviePresenter : FetchMoviePresenter = {
@@ -36,13 +37,32 @@ class ViewController: UIViewController {
     //Setting up the UI elements
     private func setUI(){
         
+        //Setting up the refresh control
+        setupRefreshControl()
+        
         //Setting up the collectionView
         setupCollectionView()
         
-        //Fetch the movies api call
-        fetchMoviePresenter.fetchMovieList()
+        //Setting up the delegate method
         fetchMoviePresenter.fetchedMovieSuccessfullyDelegate = self
         fetchMoviePresenter.movieSelectedDelegate = self
+        
+        //Fetching the movie list
+        fetchMovieListAPI()
+    }
+    
+    //Setting up the refresh control
+    func setupRefreshControl(){
+        
+        // Configure Refresh Control
+        refreshControl.addTarget(self, action: #selector(fetchMovieListAPI), for: .valueChanged)
+        refreshControl.attributedTitle = NSAttributedString(string: "Fetching Movie Data ...")
+    }
+    
+    //Fetching the  movieList from server
+    @objc func fetchMovieListAPI(){
+        //Fetch the movies api call
+        fetchMoviePresenter.fetchMovieList()
     }
     
     //Setting up the collectionView
@@ -53,6 +73,9 @@ class ViewController: UIViewController {
         movieCollectionView.dataSource = dataSource
         movieCollectionView.delegate = delegate
         movieCollectionView.prefetchDataSource = prefetchDataSource
+        
+        
+        movieCollectionView.addSubview(refreshControl)
     }
     
     //Setting up the collectionView XIB
@@ -61,13 +84,30 @@ class ViewController: UIViewController {
                                      forCellWithReuseIdentifier: Constants.movieListCellName)
         
     }
+    
+    //MARK: Show Error
+    private func showErrorMessage(){
+        
+        fetchMoviePresenter.onErrorHandling = { [weak self] error in
+            // display error ?
+            let controller = UIAlertController(title: Constants.alertBoxHeading, message: error?.localizedDescription, preferredStyle: .alert)
+            controller.addAction(UIAlertAction(title: "Close", style: .cancel, handler: nil))
+            self?.present(controller, animated: true, completion: nil)
+        }
+    }
 }
 
 extension ViewController : FetchedMovieSuccessfullyDelegate{
-    
+
     func reloadCollectionView() {
+        refreshControl.endRefreshing()
         movieCollectionView.reloadData()
     }
+    
+    func failedToLoadMovieList() {
+        refreshControl.endRefreshing()
+        showErrorMessage()
+     }
 }
 
 extension ViewController : MovieSelectedDelegate{
@@ -75,4 +115,6 @@ extension ViewController : MovieSelectedDelegate{
     func didSelectMovie(movieId: Int) {
         Router.navigateToMovieDetailScreen(fromController: self, movieId: movieId)
     }
+    
+    
 }

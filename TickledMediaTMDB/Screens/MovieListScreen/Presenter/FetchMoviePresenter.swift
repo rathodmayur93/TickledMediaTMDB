@@ -11,6 +11,7 @@ import UIKit
 
 protocol FetchedMovieSuccessfullyDelegate {
     func reloadCollectionView()
+    func failedToLoadMovieList()
 }
 
 class FetchMoviePresenter {
@@ -20,6 +21,8 @@ class FetchMoviePresenter {
     private weak var dataSource     : MovieListDataSource?
     private weak var delegate       : MovieListDelegateFlowLayout?
     private weak var prefetchData   : MovieListPrefetchingDataSource?
+    
+    var onErrorHandling : ((ErrorResult?) -> Void)?
     
     var movieListModel                      : MovieListModel?
     var fetchedMovieSuccessfullyDelegate    : FetchedMovieSuccessfullyDelegate?
@@ -72,7 +75,13 @@ class FetchMoviePresenter {
     }
     
     //MARK: - API Calls
-    func fetchMovieList(service: FetchMoviesServiceProtocol = FetchMoviesService.shared){
+    func fetchMovieList(){
+        
+        guard let service = service else {
+            onErrorHandling?(ErrorResult.custom(string: "Missing Service"))
+            fetchedMovieSuccessfullyDelegate?.failedToLoadMovieList()
+            return
+        }
         
         guard !isFetchInProgress else {
             return
@@ -93,6 +102,8 @@ class FetchMoviePresenter {
                     self.handleFetchMovieAPIResponse(movieList: movieList)
                 case .failure(let error):
                     self.isFetchInProgress = false
+                    self.onErrorHandling?(error)
+                    self.fetchedMovieSuccessfullyDelegate?.failedToLoadMovieList()
                     print("API Error : \(error)")
                 }
                 
@@ -133,11 +144,5 @@ class FetchMoviePresenter {
         }else{
             movieListModel = movieList
         }
-    }
-    
-    private func calculateIndexPathsToReload(newMovieList: [MovieResult]) -> [IndexPath] {
-        let startIndex = currentItemsCount - newMovieList.count
-        let endIndex = startIndex + 10//newMovieList.count
-        return (startIndex..<endIndex).map { IndexPath(row: $0, section: 0) }
     }
 }

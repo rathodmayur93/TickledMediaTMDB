@@ -34,4 +34,8 @@ struct Constants {
     
     //MovieList Item per row value
     static let movieListItemsPerRow : CGFloat = 2
+    
+    //Alert Box Constants
+    static let alertBoxHeading = "Error"
+    static let alertActionButton = "Close"
 }
