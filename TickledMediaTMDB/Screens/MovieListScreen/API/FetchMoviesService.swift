@@ -22,14 +22,14 @@ final class FetchMoviesService : RequestHandler, FetchMoviesServiceProtocol{
     
     func fetchMovieList(parameter : [String : String], _ completion: @escaping ((Result<MovieListModel, ErrorResult>) -> Void)) {
         // cancel previous request if already in progress
-        self.cancelFetchContacts()
-        
-        let networkResult = self.networkResultData(completion: completion)
-        task = RequestService().loadData(urlString: endpoint, parameters: parameter, completion: networkResult)
+        self.cancelFetchMovieList()
+        task = RequestService().loadData(urlString: endpoint,
+                                         parameters: parameter,
+                                         completion: self.networkResultData(completion: completion))
     }
     
     
-    func cancelFetchContacts() {
+    func cancelFetchMovieList() {
         
         if let task = task {
             task.cancel()

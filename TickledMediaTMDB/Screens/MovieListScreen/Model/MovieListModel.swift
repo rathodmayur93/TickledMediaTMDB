@@ -10,9 +10,10 @@ import Foundation
 
 // MARK: - MovieList
 struct MovieListModel: Codable {
-    let page: Int?
-    var results: [MovieResult]?
-    let totalPages, totalResults: Int?
+    let page: Int? = 0
+    var results: [MovieResult]? = [MovieResult]()
+    let totalPages : Int? = 0
+    let totalResults: Int? = 0
 
     enum CodingKeys: String, CodingKey {
         case page, results

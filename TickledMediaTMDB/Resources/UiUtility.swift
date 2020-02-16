@@ -68,4 +68,29 @@ struct UiUtility {
             self.container.removeFromSuperview()
         }
     }
+    
+    //MARK: Read JSON from the local file
+    static func readJson(fileName : String) -> Data? {
+        
+        if let path = Bundle.main.path(forResource: fileName, ofType: "json") {
+            do {
+                //Creating the URL from Path
+                let fileUrl = URL(fileURLWithPath: path)
+               
+                // Getting data from JSON file using the file URL
+                let data = try Data(contentsOf: fileUrl, options: .mappedIfSafe)
+                
+                return data
+                
+            } catch {
+                /*
+                  - Handle error here
+                  - Invalid json format
+                */
+                
+            }
+        }
+        
+        return nil
+    }
 }

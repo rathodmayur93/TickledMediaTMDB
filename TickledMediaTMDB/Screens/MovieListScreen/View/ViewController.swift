@@ -67,6 +67,9 @@ class ViewController: UIViewController {
     
     //Setting up the collectionView
     private func setupCollectionView(){
+        
+        movieCollectionView.accessibilityIdentifier = TestUIElementKeys.movieListCollectionView
+        
         //Setting up the collectionView XIB
         setupCollectionViewXIB()
         

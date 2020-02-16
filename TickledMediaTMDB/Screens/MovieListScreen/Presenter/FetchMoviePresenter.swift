@@ -17,7 +17,7 @@ protocol FetchedMovieSuccessfullyDelegate {
 class FetchMoviePresenter {
     
     //MARK: Variables
-    private var service             : FetchMoviesServiceProtocol?
+    var service                     : FetchMoviesServiceProtocol?
     private weak var dataSource     : MovieListDataSource?
     private weak var delegate       : MovieListDelegateFlowLayout?
     private weak var prefetchData   : MovieListPrefetchingDataSource?
