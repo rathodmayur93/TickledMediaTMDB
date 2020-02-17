@@ -11,6 +11,13 @@ This is an assignment, in which I have created an app which fetches the MovieLis
 
 - Add Contact Screen
 
+## Why MVP Architecure
+Here in this project i have tried to implement the MVP architecture reason are as below 
+
+- Distribution - since i wanted to maintain the distribution of the code and we have the most of responsibilities  in the Presenter, with the pretty dumb View .
+- Testability — testablity of this architecure is good, we can test most of the business logic.
+- Easy of use - Its easy to understand and simple to maintain
+
 ## Requirments
 
 - Xcode 11.1
@@ -49,4 +56,17 @@ The unit test case under this group will test the business logic which we have c
 ### DataSource
 The unit test case under this group will test all the data source i.e TableViewDataSource & TableviewDelegate methods we have created in this project
 
+
+## What if i had more time ?
+ 
+- If i had more time definately i would have implemented the Search Feature where user can search movie
+- We can show an genere list and on selecting the genere will show the respective genere movie list
+- We can also have vote feature 
+- Showing more detail of the movie on the movie detail screen
+- More Enhacne UI
+- Better Image caching technique
+- Handling the internet case more efficiently 
+- More Unit test cases
+
+ 
 
