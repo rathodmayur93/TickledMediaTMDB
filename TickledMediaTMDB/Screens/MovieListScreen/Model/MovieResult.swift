@@ -9,6 +9,7 @@
 import Foundation
 
 // MARK: - Result
+// Generated this model class using the https://app.quicktype.io/
 struct MovieResult: Codable {
     let id: Int?
     let video: Bool?

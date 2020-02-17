@@ -16,11 +16,12 @@ protocol MovieDetailDelegate {
 class MovieDetailViewPresenter{
     
     //MARK: Variables
-    private var service : FetchMovieDetailServiceProtocol?
+    var service : FetchMovieDetailServiceProtocol?
     var movieDetaiModel : MovieDetailModel?
     var errorResult : ErrorResult?
     var movieDetailDelegate : MovieDetailDelegate?
     
+    //Computed Variables
     var posterImageView : String{
         return Constants.imageBaseUrl + (movieDetaiModel?.backdropPath ?? "")
     }
@@ -54,6 +55,7 @@ class MovieDetailViewPresenter{
         self.service = service
     }
     
+    //This function will convert the movie runtime minutes into the Hour and minute
     private func calculateMovieRuntime() -> String{
         
         let movieLength = movieDetaiModel?.runtime ?? 0.0
@@ -65,9 +67,11 @@ class MovieDetailViewPresenter{
     //MARK: - API Calls
     func fetchMovieDetailAPICall(movieId : Int){
         
+        //Check whether internet connection is there or not
         if !InternetConnectionManager.isConnectedToNetwork(){
             print("No Internet Connection")
             errorResult = ErrorResult.custom(string: "No Internet Conenction")
+            //Calling the delegate method to show an error
             self.movieDetailDelegate?.movieDetailFailedToLoad()
             return
         }
@@ -75,22 +79,27 @@ class MovieDetailViewPresenter{
         //Show Indicator loader
         Utility.showIndicatorLoader()
         
+        //Unwrapping the servic
         guard let service = service else {
             errorResult = ErrorResult.custom(string: "Missing Service")
             self.movieDetailDelegate?.movieDetailFailedToLoad()
             return
         }
         
+        //Fetching the movie detail by making an api call
         service.fethcMovieDetail(movieId: movieId, parameter: ServiceParameters.movieDetailParams(), { (result) in
             
+            //Updating the UI on the main thread
             DispatchQueue.main.async {
                 
                 switch result{
+                //Successfully fetch the movie list now updating UI
                 case .success(let movieDetailModel):
                     
                     self.movieDetaiModel = movieDetailModel
                     self.movieDetailDelegate?.movieDetailLoadedSuccessfully()
                     break
+                //Unable to fetch the movie details
                 case .failure(let error):
                     self.errorResult = error
                     self.movieDetailDelegate?.movieDetailFailedToLoad()

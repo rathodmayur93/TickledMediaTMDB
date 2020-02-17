@@ -18,6 +18,14 @@ class FetchMovieDetailService : RequestHandler, FetchMovieDetailServiceProtocol 
     static let shared = FetchMovieDetailService()
     var task : URLSessionTask?
     
+    
+    /**
+     This method will fetch the response by making an api call and then convert it into the respecitve model
+     
+     - parameter movieId: Request movie detail id
+     - parameter parameter: parameter for the movie detail api
+     - returns: Completion handler containing the result of MovieDetailModel and ErrorResult
+    */
     func fethcMovieDetail(movieId : Int, parameter: [String : String], _ completion: @escaping ((Result<MovieDetailModel, ErrorResult>) -> Void)) {
         
         let endpoint = Endpoint.movieDetail(movieId: movieId).path
@@ -30,6 +38,7 @@ class FetchMovieDetailService : RequestHandler, FetchMovieDetailServiceProtocol 
         
     }
     
+    //Cancel the fetch movie detail task
     func cancelFetchMovieDetail() {
         
         if let task = task {

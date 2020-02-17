@@ -42,7 +42,9 @@ class MovieListScreenTest : XCTestCase {
             
             let promise = expectation(description: "Wait for collectionView cells")
             
+            //loop throught the each cell
             for i in stride(from: 0, to: count , by: 1) {
+                
                 // Grab the first cell and verify that it exists and tap it
                 let collectionCell = collectionCell.element(boundBy: i)
                 XCTAssertTrue(collectionCell.exists, "The \(i) cell is in place on the collectionView")
@@ -57,8 +59,6 @@ class MovieListScreenTest : XCTestCase {
                 // Back
                 app.swipeDown()
             }
-            
-            //app.swipeUp()
             
             waitForExpectations(timeout: 20, handler: nil)
             XCTAssertTrue(true, "Finished validating the collectionView cells")

@@ -9,6 +9,7 @@
 import Foundation
 
 // MARK: - MovieList
+//Generated this model class using the https://app.quicktype.io/
 struct MovieListModel: Codable {
     let page: Int? = 0
     var results: [MovieResult]? = [MovieResult]()

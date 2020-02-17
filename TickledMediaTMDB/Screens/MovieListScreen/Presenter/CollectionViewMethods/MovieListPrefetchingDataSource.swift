@@ -13,7 +13,8 @@ class MovieListPrefetchingDataSource : MovieListData, UICollectionViewDataSource
     func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
         
         for indexPath in indexPaths{
-            print("Prefetching =============> Index \(indexPath.item)")
+            
+            //Prefetching will help us to know that user will reach to the bottom soon so will fetch the next page of the movie list
             if(indexPath.item >= ((fetchMovieListPresenter?.currentItemsCount ?? 0) - 1)){
                 print("=============== Pagination ==============")
                 fetchMovieListPresenter?.fetchMovieList()

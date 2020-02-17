@@ -8,8 +8,12 @@
 
 import Foundation
 
+//For XCTest Element Keys
 struct TestUIElementKeys {
     
     //MARK:- Movie List Screen
     static let movieListCollectionView = "collection--movieListCollectionView"
+    
+    //MARK:- Movie Detail Screen
+    static let movieDetailTitleLabel = "label--movieTitle"
 }

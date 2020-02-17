@@ -93,11 +93,15 @@ class ViewController: UIViewController {
     //MARK: Show Error
     private func showErrorMessage(){
         
+        //Updating the UI on the main thread
         DispatchQueue.main.async {
             
+            //Unwrapping the errorResult
             guard let errorResult = self.fetchMoviePresenter.errorResult else { return }
+            //Fetching the errorMessage
             let errorMessage = Utility.retrieveErrorMessage(errorResult: errorResult)
             
+            //Display an alert box with error message
             let controller = UIAlertController(title: Constants.alertBoxHeading,
                                                message: errorMessage,
                                                preferredStyle: .alert)
@@ -109,11 +113,13 @@ class ViewController: UIViewController {
 
 extension ViewController : FetchedMovieSuccessfullyDelegate{
     
+    //This funciton will update the UI when api call is successful and model contain valid data
     func reloadCollectionView() {
         refreshControl.endRefreshing()
         movieCollectionView.reloadData()
     }
     
+    //If there is any error while invoking the api service this method will get called
     func failedToLoadMovieList() {
         refreshControl.endRefreshing()
         showErrorMessage()
@@ -122,7 +128,9 @@ extension ViewController : FetchedMovieSuccessfullyDelegate{
 
 extension ViewController : MovieSelectedDelegate{
     
+    //Whenever user tap on any movie this method will be invoked
     func didSelectMovie(movieId: Int) {
+        //Router will help us to navigate to the MovieDetailScreen
         Router.navigateToMovieDetailScreen(fromController: self, movieId: movieId)
     }
     

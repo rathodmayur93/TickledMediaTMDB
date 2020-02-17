@@ -8,11 +8,13 @@
 
 import Foundation
 
+//API URL Enedpoints
 enum Endpoint {
     
     case movieList
     case movieDetail(movieId : Int)
     
+    //Path of the API Url
     var path: String {
         
         switch self {

@@ -48,6 +48,9 @@ class MovieDetailViewController: UIViewController {
     
     //MARK:- Updating the UI
     private func updateUI(){
+        
+        movieTitleLabel.accessibilityIdentifier = TestUIElementKeys.movieDetailTitleLabel
+        
         self.posterImageView.loadImageUsingUrl(urlString: movieDetailPresenter.posterImageView)
         movieTitleLabel.text = movieDetailPresenter.movieTitle
         movieTagLineLabel.text = movieDetailPresenter.movieTagline
@@ -61,11 +64,15 @@ class MovieDetailViewController: UIViewController {
     //MARK: Show Error
     private func showErrorMessage(){
         
+        //Updating the UI on the main thread
         DispatchQueue.main.async {
             
+            //Unwrapping the errorResult
             guard let errorResult = self.movieDetailPresenter.errorResult else { return }
+            //Fetching the errorMessage
             let errorMessage = Utility.retrieveErrorMessage(errorResult: errorResult)
             
+            //Display an alert box with error message
             let controller = UIAlertController(title: Constants.alertBoxHeading,
                                                message: errorMessage,
                                                preferredStyle: .alert)
@@ -77,10 +84,12 @@ class MovieDetailViewController: UIViewController {
 
 extension MovieDetailViewController : MovieDetailDelegate {
     
+    //This funciton will update the UI when api call is successful and model contain valid data
     func movieDetailLoadedSuccessfully() {
         updateUI()
     }
     
+    //If there is any error while invoking the api service this method will get called
     func movieDetailFailedToLoad() {
         showErrorMessage()
     }

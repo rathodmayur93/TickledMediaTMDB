@@ -15,6 +15,7 @@ struct Utility {
     static let container: UIView                                   = UIView()
     
     //MARK: Converting the hex color codes into the UIColor
+    //Reference from the StackOverflow
     static func hexStringToUIColor (hex:String) -> UIColor {
         var cString:String = hex.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
         
@@ -38,6 +39,7 @@ struct Utility {
     }
     
     //MARK: Show Indicator Loader while making an api call
+    //Reference from the StackOverflow
     static func showIndicatorLoader(){
         
         let window                      = UIApplication.shared.keyWindowInConnectedScenes
@@ -69,31 +71,6 @@ struct Utility {
         }
     }
     
-    //MARK: Read JSON from the local file
-    static func readJson(fileName : String) -> Data? {
-        
-        if let path = Bundle.main.path(forResource: fileName, ofType: "json") {
-            do {
-                //Creating the URL from Path
-                let fileUrl = URL(fileURLWithPath: path)
-               
-                // Getting data from JSON file using the file URL
-                let data = try Data(contentsOf: fileUrl, options: .mappedIfSafe)
-                
-                return data
-                
-            } catch {
-                /*
-                  - Handle error here
-                  - Invalid json format
-                */
-                
-            }
-        }
-        
-        return nil
-    }
-    
     //MARK:- Fetching the errorMessage from teh ErrorResult Enum property
     static func retrieveErrorMessage(errorResult : ErrorResult) -> String{
         
@@ -104,8 +81,6 @@ struct Utility {
             return value
         case .parser(let value):
             return value
-        default:
-            return "We are facing some technical issue. Please try again after sometime"
         }
     }
 }

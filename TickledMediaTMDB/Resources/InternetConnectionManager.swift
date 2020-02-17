@@ -10,6 +10,8 @@ import Foundation
 import UIKit
 import SystemConfiguration
 
+//Internet connection manager to check whether internet connection is there or not
+//Reference from the StackOverflow
 public class InternetConnectionManager {
     
     private init() {

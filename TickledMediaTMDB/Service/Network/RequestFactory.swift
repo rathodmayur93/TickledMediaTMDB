@@ -15,7 +15,13 @@ import Foundation
 */
 final class RequestFactory {
     
-    //Get request method
+    /**
+     This method returns the URLRequest
+     
+     - parameter method: RequestMethod i.e GET, POST, PUT etc
+     - parameter url: URL of api endpoint
+     - returns: URLRequest of the request request url
+    */
     static func request(method: RequestMethod, url: URL) -> URLRequest {
         var request = URLRequest(url: url)
         request.httpMethod = method.rawValue

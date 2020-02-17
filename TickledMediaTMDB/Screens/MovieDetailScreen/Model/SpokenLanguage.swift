@@ -6,6 +6,7 @@
 //  Copyright © 2020 Mayur Rathod. All rights reserved.
 //
 
+//Generated this model class using the https://app.quicktype.io/
 // MARK: - SpokenLanguage
 struct SpokenLanguage: Codable {
     let iso639_1, name: String?

@@ -11,7 +11,6 @@ import Foundation
 enum RequestMethod: String {
     
     // MARK: - Cases
-    
     case GET
     case POST
     case PUT

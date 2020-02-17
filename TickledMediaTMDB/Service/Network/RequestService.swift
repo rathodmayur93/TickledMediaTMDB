@@ -15,7 +15,15 @@ import Foundation
 */
 final class RequestService {
 
-    //Load data
+     /**
+        This method returns the URLRequest
+        
+        - parameter urlString: API url endpint in string format
+        - parameter session: URLSession configuration
+        - parameter parameters : Request parameters while making an api call
+        - parameter completion: completion method of type Result<Data, ErrorResult>
+        - returns: URLSessionTask of the request api url
+       */
     func loadData(urlString: String,
                   session: URLSession = URLSession(configuration: .default),
                   parameters: [String : String],

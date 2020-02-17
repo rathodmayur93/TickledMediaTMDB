@@ -53,6 +53,7 @@ class FetchMoviePresenter {
         self.prefetchData = prefetchDataSource
     }
     
+    //Passing the reference of the presenter to the dataSource, delegate & prefetchData
     private func passDataToDataSource(){
         dataSource?.fetchMovieListPresenter = self
         delegate?.fetchMovieListPresenter = self
@@ -60,22 +61,20 @@ class FetchMoviePresenter {
         
     }
     
-    //MARK:- Fetching Movie Values
+    //Fetching Movie Values
     func fetchMovieName(atIndex : Int) -> String{
         return movieListModel?.results?[atIndex].title ?? ""
     }
     
+    //Fetching the movie poster url
     func fetchMoviePosterUrl(atIndex : Int) -> String{
         return Constants.imageBaseUrl + (movieListModel?.results?[atIndex].posterPath ?? "")
-    }
-    
-    func isLoadingCell(for indexPath: IndexPath) -> Bool {
-        return indexPath.row >= currentItemsCount
     }
     
     //MARK: - API Calls
     func fetchMovieList(){
         
+        //Check whether internet connection is there or not
         if !InternetConnectionManager.isConnectedToNetwork(){
             print("No Internet Connection")
             errorResult = ErrorResult.custom(string: "No Internet Connection")
@@ -83,16 +82,19 @@ class FetchMoviePresenter {
             return
         }
         
+        //Unwrapping the service
         guard let service = service else {
             errorResult = ErrorResult.custom(string: "Missing Service")
             fetchedMovieSuccessfullyDelegate?.failedToLoadMovieList()
             return
         }
         
+        //If fetch is in progress it will return from here
         guard !isFetchInProgress else {
             return
         }
         
+        //changing the isFetchInProgress flaf
         isFetchInProgress = true
         
         //Show loader while loading first page only
@@ -100,12 +102,15 @@ class FetchMoviePresenter {
             Utility.showIndicatorLoader()
         }
         
+        //Fetching the movie list by making an api call
         service.fetchMovieList(parameter: ServiceParameters.movieListParams(currentPage: currentPage)) { result in
             DispatchQueue.main.async {
                 switch result{
+                //Successfully fetch the movie list now updating UI
                 case .success(let movieList):
                     print("============================= Movie List API Response Sucess ============================= ")
                     self.handleFetchMovieAPIResponse(movieList: movieList)
+                //Unable to fetch the movie details
                 case .failure(let error):
                     self.isFetchInProgress = false
                     self.errorResult = error
@@ -113,6 +118,7 @@ class FetchMoviePresenter {
                     print("API Error : \(error)")
                 }
                 
+                //Hide indicator loader
                 Utility.hideIndicatorLoader()
             }
         }

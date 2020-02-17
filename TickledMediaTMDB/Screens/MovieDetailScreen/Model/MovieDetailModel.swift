@@ -6,6 +6,7 @@
 //  Copyright © 2020 Mayur Rathod. All rights reserved.
 //
 
+//Generated this model class using the https://app.quicktype.io/
 struct MovieDetailModel: Codable {
     let adult: Bool?
     let backdropPath: String?

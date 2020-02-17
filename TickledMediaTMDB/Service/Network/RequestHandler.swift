@@ -18,8 +18,8 @@ class RequestHandler {
                 
                 switch dataResult{
                 case .success(let data):
+                    //Converting the data into the Respective model
                     let movieList = try? JSONDecoder().decode(T.self, from: data)
-                    print(movieList!)
                     completion(.success(movieList!))
                 case .failure(let error):
                     print("Network Error \(error)")
