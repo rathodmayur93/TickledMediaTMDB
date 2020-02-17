@@ -19,6 +19,8 @@ class ViewController: UIViewController {
     private let prefetchDataSource = MovieListPrefetchingDataSource()
     private let refreshControl = UIRefreshControl()
     
+    private var errorMessage : String?
+    
     //Setting up the presenter
     lazy var fetchMoviePresenter : FetchMoviePresenter = {
         let presenter = FetchMoviePresenter(dataSource: dataSource,
@@ -91,17 +93,22 @@ class ViewController: UIViewController {
     //MARK: Show Error
     private func showErrorMessage(){
         
-        fetchMoviePresenter.onErrorHandling = { [weak self] error in
-            // display error ?
-            let controller = UIAlertController(title: Constants.alertBoxHeading, message: error?.localizedDescription, preferredStyle: .alert)
+        DispatchQueue.main.async {
+            
+            guard let errorResult = self.fetchMoviePresenter.errorResult else { return }
+            let errorMessage = Utility.retrieveErrorMessage(errorResult: errorResult)
+            
+            let controller = UIAlertController(title: Constants.alertBoxHeading,
+                                               message: errorMessage,
+                                               preferredStyle: .alert)
             controller.addAction(UIAlertAction(title: "Close", style: .cancel, handler: nil))
-            self?.present(controller, animated: true, completion: nil)
+            self.present(controller, animated: true, completion: nil)
         }
     }
 }
 
 extension ViewController : FetchedMovieSuccessfullyDelegate{
-
+    
     func reloadCollectionView() {
         refreshControl.endRefreshing()
         movieCollectionView.reloadData()
@@ -110,7 +117,7 @@ extension ViewController : FetchedMovieSuccessfullyDelegate{
     func failedToLoadMovieList() {
         refreshControl.endRefreshing()
         showErrorMessage()
-     }
+    }
 }
 
 extension ViewController : MovieSelectedDelegate{

@@ -28,7 +28,7 @@ class MovieListModelTest : XCTestCase{
     func testParseMovieList(){
         
         // giving a sample json file
-        guard let data = UiUtility.readJson(fileName: "movie") else {
+        guard let data = Utility.readJson(fileName: "movie") else {
             XCTAssert(false, "Can't get data from movie.json")
             return
         }

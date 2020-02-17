@@ -8,7 +8,7 @@
 
 import UIKit
 
-struct UiUtility {
+struct Utility {
     
     //Loader Views
     static let spinningActivityIndicator: UIActivityIndicatorView  = UIActivityIndicatorView()
@@ -92,5 +92,20 @@ struct UiUtility {
         }
         
         return nil
+    }
+    
+    //MARK:- Fetching the errorMessage from teh ErrorResult Enum property
+    static func retrieveErrorMessage(errorResult : ErrorResult) -> String{
+        
+        switch errorResult{
+        case .custom(let value):
+            return value
+        case .network(let value):
+            return value
+        case .parser(let value):
+            return value
+        default:
+            return "We are facing some technical issue. Please try again after sometime"
+        }
     }
 }

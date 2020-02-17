@@ -18,7 +18,7 @@ class MovieDetailViewPresenter{
     //MARK: Variables
     private var service : FetchMovieDetailServiceProtocol?
     var movieDetaiModel : MovieDetailModel?
-    var onErrorHandling : ((ErrorResult?) -> Void)?
+    var errorResult : ErrorResult?
     var movieDetailDelegate : MovieDetailDelegate?
     
     var posterImageView : String{
@@ -65,11 +65,18 @@ class MovieDetailViewPresenter{
     //MARK: - API Calls
     func fetchMovieDetailAPICall(movieId : Int){
         
+        if !InternetConnectionManager.isConnectedToNetwork(){
+            print("No Internet Connection")
+            errorResult = ErrorResult.custom(string: "No Internet Conenction")
+            self.movieDetailDelegate?.movieDetailFailedToLoad()
+            return
+        }
+        
         //Show Indicator loader
-        UiUtility.showIndicatorLoader()
+        Utility.showIndicatorLoader()
         
         guard let service = service else {
-            onErrorHandling?(ErrorResult.custom(string: "Missing Service"))
+            errorResult = ErrorResult.custom(string: "Missing Service")
             self.movieDetailDelegate?.movieDetailFailedToLoad()
             return
         }
@@ -85,13 +92,13 @@ class MovieDetailViewPresenter{
                     self.movieDetailDelegate?.movieDetailLoadedSuccessfully()
                     break
                 case .failure(let error):
-                    self.onErrorHandling?(error)
+                    self.errorResult = error
                     self.movieDetailDelegate?.movieDetailFailedToLoad()
                     print("Movie Detail Error \(error)")
                 }
                 
                 //Hide indicator loader
-                UiUtility.hideIndicatorLoader()
+                Utility.hideIndicatorLoader()
             }
         })
     }

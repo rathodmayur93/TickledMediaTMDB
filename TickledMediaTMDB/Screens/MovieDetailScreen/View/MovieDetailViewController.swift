@@ -41,8 +41,9 @@ class MovieDetailViewController: UIViewController {
         guard let selectedMovieId = movieId else { return }
         
         //Fetch the movie detail api call
-        movieDetailPresenter.fetchMovieDetailAPICall(movieId: selectedMovieId)
         movieDetailPresenter.movieDetailDelegate = self
+        movieDetailPresenter.fetchMovieDetailAPICall(movieId: selectedMovieId)
+        
     }
     
     //MARK:- Updating the UI
@@ -60,16 +61,21 @@ class MovieDetailViewController: UIViewController {
     //MARK: Show Error
     private func showErrorMessage(){
         
-        movieDetailPresenter.onErrorHandling = { [weak self] error in
-            // display error ?
-            let controller = UIAlertController(title: Constants.alertBoxHeading, message: error?.localizedDescription, preferredStyle: .alert)
+        DispatchQueue.main.async {
+            
+            guard let errorResult = self.movieDetailPresenter.errorResult else { return }
+            let errorMessage = Utility.retrieveErrorMessage(errorResult: errorResult)
+            
+            let controller = UIAlertController(title: Constants.alertBoxHeading,
+                                               message: errorMessage,
+                                               preferredStyle: .alert)
             controller.addAction(UIAlertAction(title: "Close", style: .cancel, handler: nil))
-            self?.present(controller, animated: true, completion: nil)
+            self.present(controller, animated: true, completion: nil)
         }
     }
 }
 
-extension MovieDetailViewController : MovieDetailDelegate{
+extension MovieDetailViewController : MovieDetailDelegate {
     
     func movieDetailLoadedSuccessfully() {
         updateUI()

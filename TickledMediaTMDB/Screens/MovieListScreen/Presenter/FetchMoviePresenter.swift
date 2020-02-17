@@ -22,8 +22,6 @@ class FetchMoviePresenter {
     private weak var delegate       : MovieListDelegateFlowLayout?
     private weak var prefetchData   : MovieListPrefetchingDataSource?
     
-    var onErrorHandling : ((ErrorResult?) -> Void)?
-    
     var movieListModel                      : MovieListModel?
     var fetchedMovieSuccessfullyDelegate    : FetchedMovieSuccessfullyDelegate?
     var movieSelectedDelegate               : MovieSelectedDelegate?
@@ -33,6 +31,7 @@ class FetchMoviePresenter {
     private var currentPage = 1
     private var totalPages  = 1
     private var isFetchInProgress = false
+    var errorResult : ErrorResult?
     
     var totalPagesCount : Int{
         return totalPages
@@ -77,8 +76,15 @@ class FetchMoviePresenter {
     //MARK: - API Calls
     func fetchMovieList(){
         
+        if !InternetConnectionManager.isConnectedToNetwork(){
+            print("No Internet Connection")
+            errorResult = ErrorResult.custom(string: "No Internet Connection")
+            fetchedMovieSuccessfullyDelegate?.failedToLoadMovieList()
+            return
+        }
+        
         guard let service = service else {
-            onErrorHandling?(ErrorResult.custom(string: "Missing Service"))
+            errorResult = ErrorResult.custom(string: "Missing Service")
             fetchedMovieSuccessfullyDelegate?.failedToLoadMovieList()
             return
         }
@@ -91,7 +97,7 @@ class FetchMoviePresenter {
         
         //Show loader while loading first page only
         if(currentPage == 1){
-            UiUtility.showIndicatorLoader()
+            Utility.showIndicatorLoader()
         }
         
         service.fetchMovieList(parameter: ServiceParameters.movieListParams(currentPage: currentPage)) { result in
@@ -102,12 +108,12 @@ class FetchMoviePresenter {
                     self.handleFetchMovieAPIResponse(movieList: movieList)
                 case .failure(let error):
                     self.isFetchInProgress = false
-                    self.onErrorHandling?(error)
+                    self.errorResult = error
                     self.fetchedMovieSuccessfullyDelegate?.failedToLoadMovieList()
                     print("API Error : \(error)")
                 }
                 
-                UiUtility.hideIndicatorLoader()
+                Utility.hideIndicatorLoader()
             }
         }
     }
